@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "imgUrl": "http://file3.instiz.net/data/file3/2021/05/31/c/7/9/c793741f86b157e31986dfd34ab50173.png",
+        "nickname": "짜파게티요리사",
+        "postId": 1,
+        "regDate": "2022-02-21 00:00:00",
+        "text":"나는야 짜파게티 요리사"
+    },
+    {
+        "id": 2,
+        "imgUrl": "http://file3.instiz.net/data/file3/2021/05/31/0/a/e/0ae5e800bede3f537a0426f62f2af8af.png",
+        "nickname": "마스터춘식",
+        "postId": 3,
+        "regDate": "2022-02-21 00:00:00",
+        "text":"고양이 사진을 더 내놓으시욤"
+    }
+]

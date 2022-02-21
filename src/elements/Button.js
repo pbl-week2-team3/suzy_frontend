@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Button = (props) => {
 
-    const { backgroundColor, color, width, height, children} = props;
+    const { _onClick, backgroundColor, color, width, height, children} = props;
 
     const styles = {
         backgroundColor : backgroundColor,
@@ -13,7 +13,7 @@ const Button = (props) => {
     };
 
     return (
-        <B {...styles}>
+        <B onClick={_onClick} {...styles}>
             {children}
         </B>
     );

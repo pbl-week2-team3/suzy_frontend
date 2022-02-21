@@ -1,0 +1,10 @@
+[
+    {
+        "success": true,
+        "messages": "좋아요!"
+    },
+    {
+        "success": false,
+        "messages": "좋아요 취소"
+    }
+]

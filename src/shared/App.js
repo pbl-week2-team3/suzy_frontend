@@ -1,28 +1,36 @@
 import "./App.css";
 import React from "react";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PostList from "../pages/PostList";
-import Signup from "../pages/Signup";
-import Login from "../pages/Login";
-import Header from "./Header";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import { Grid } from "../elements";
+import Header from "./Header"
+import {PostList, Signup, Login, NewPost, LikesList} from "../pages/index"
+
+import { FloatingButton, Grid } from "../elements";
+import { history } from "../utils/history";
+import { useRecoilValue } from "recoil";
+import { loginState } from "../modules/users";
 
 function App() {
+
+	const isLogin = useRecoilValue(loginState);
+
 	return (
-		<React.Fragment>
-			<Grid>
-				<BrowserRouter>
-					<Header />
-					<Routes>
-						<Route path='/' element={<PostList />} />
-						<Route path='/signup' element={<Signup />} />
-						<Route path='/login' element={<Login />} />
-					</Routes>
-				</BrowserRouter>
-			</Grid>
-		</React.Fragment>
+		<Grid>
+			<BrowserRouter history={history}>
+				<Header />
+				<Routes>
+					<Route path='/' element={<PostList />} />
+					<Route path='/signup' element={<Signup />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/new' element={<NewPost />} />
+					<Route path='/likes' element={<LikesList />} />
+				</Routes>
+				<Link to='/new'>
+					<FloatingButton active={isLogin}>+</FloatingButton>
+				</Link>
+			</BrowserRouter>
+		</Grid>
 	);
 }
 

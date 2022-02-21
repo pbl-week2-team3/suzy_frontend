@@ -1,33 +1,77 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+
+import { loginState, loginUserState, useUserActions } from "../modules/users";
 
 import { Grid, Text, Button } from "../elements";
 
 const Header = (props) => {
-	const navigate = useNavigate();
+	const userActions = useUserActions();
 
-	return (
-		<React.Fragment>
-			<Grid isFlex padding='4px 16px'>
-				<Grid>
-					<Link to='/'>
-						<Text margin='0px' size='24px' bold>
-							community.io
-						</Text>
-					</Link>
-				</Grid>
+	const [isLogin, setIsLogin] = useRecoilState(loginState);
+	const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+	console.log(loginUser);
 
-				<Grid isFlex>
-					<Link to='/signup'>
-						<Button>회원가입</Button>
-					</Link>
-					<Link to='/login'>
-						<Button>로그인</Button>
-					</Link>
+	if (isLogin) {
+		return (
+			<React.Fragment>
+				<Grid padding='4px 16px'>
+					<Grid isFlex>
+						<Grid>
+							<Link to='/'>
+								<Text margin='0px' size='24px' bold>
+									community.io
+								</Text>
+							</Link>
+						</Grid>
+
+						<Grid isFlex>
+							<Text>{loginUser.nickname}님 반가워요!</Text>
+							<Link to='/signup'>
+								<Button>내정보</Button>
+							</Link>
+							<Link to='/likes'>
+								<Button>알림</Button>
+							</Link>
+							<Button
+								_onClick={() => {
+									userActions.logout();
+								}}>
+								로그아웃
+							</Button>
+						</Grid>
+					</Grid>
 				</Grid>
-			</Grid>
-		</React.Fragment>
-	);
+			</React.Fragment>
+		);
+	} else {
+		return (
+			<React.Fragment>
+				<Grid padding='4px 16px'>
+					<Grid isFlex>
+						<Grid>
+							<Link to='/'>
+								<Text margin='0px' size='24px' bold>
+									community.io
+								</Text>
+							</Link>
+						</Grid>
+
+						<Grid isFlex>
+							<Link to='/signup'>
+								<Button>회원가입</Button>
+							</Link>
+							<Link to='/login'>
+								<Button>로그인</Button>
+							</Link>
+						</Grid>
+					</Grid>
+				</Grid>
+			</React.Fragment>
+		);
+	}
 };
 
 Header.defaultProps = {};

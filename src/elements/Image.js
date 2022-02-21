@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import {Heart} from "../elements";
+
 const Image = (props) => {
 
     const {shape, src, size} = props;
@@ -18,7 +20,7 @@ const Image = (props) => {
 
     if(shape === "retangle") {
         return (
-            <AspectOuter>
+            <AspectOuter style={{position: "relative"}}>
                 <AspectInner {...styles}></AspectInner>
             </AspectOuter>
         );
