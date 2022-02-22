@@ -54,25 +54,24 @@ const Signup = ({ history }) => {
 						placeholder='닉네임을 입력해주세요.'></Input>
 					<Input
 						_onChange={changePassword}
-						_type={password}
+						_type="password"
 						label='비밀번호'
 						placeholder='비밀번호를 입력해주세요.'></Input>
 					<Input
 						_onChange={changeConfirmPassword}
-						_type={password}
+						_type="password"
 						label='확인 비밀번호'
 						placeholder='비밀번호를 입력해주세요.'></Input>
 				</Grid>
 
 				<Button
 					_onClick={() => {
-						if (password !== confirmPassword) {
-							window.alert(
-								"비밀번호와 확인 비밀번호가 일치하지 않습니다"
-							);
-						} else {
-							userActions.signup(id, nickname, password, confirmPassword);
-						}
+						userActions.signup(
+							id,
+							nickname,
+							password,
+							confirmPassword
+						);
 					}}
 					width='100%'
 					backgroundColor='#000'

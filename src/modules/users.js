@@ -1,4 +1,9 @@
-import { atom, selectorFamily, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+	atom,
+	selectorFamily,
+	useRecoilValue,
+	useSetRecoilState,
+} from "recoil";
 import { setCookie, deleteCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
@@ -82,16 +87,31 @@ export function useUserActions() {
 		confirmPassword,
 		profileImgUrl
 	) {
-		if (password === confirmPassword) {
-			if ((id, nickname, password, profileImgUrl)) {
-				await apis
-					.signup(id, nickname, password, profileImgUrl)
-					.then(navigate("/"));
+		const regExp =
+			/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+		if (
+			id === "" ||
+			nickname === "" ||
+			password === "" ||
+			confirmPassword === ""
+		) {
+			window.alert("모든 항목들을 기입해주세요");
+		} else {
+			if (id.match(regExp) === null) {
+				window.alert("아이디는 이메일 형식으로 기입해주세요");
 			} else {
-				window.alert("비밀번호와 확인 비밀번호가 일치하지 않습니다");
+				if (password !== confirmPassword) {
+					window.alert(
+						"비밀번호와 확인 비밀번호가 일치하지 않습니다"
+					);
+				} else {
+					await apis
+						.signup(id, nickname, password, profileImgUrl)
+						.then(navigate("/"));
+				}
 			}
 		}
 	}
-
 	return { login, logout, signup };
 }

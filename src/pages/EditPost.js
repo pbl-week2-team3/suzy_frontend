@@ -17,7 +17,7 @@ const EditPost = ({history}) => {
 	console.log(detail);
 
 	const loginUser = useRecoilValue(loginUserState);
-	const [previewImage, setPreviewImage] = React.useState();
+	const [previewImage, setPreviewImage] = React.useState(detail.imgUrl);
 	const [file, setFile] = React.useState("");
 	const [text, setText] = React.useState("");
 
