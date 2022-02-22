@@ -1,16 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./shared/App";
 import reportWebVitals from "./reportWebVitals";
 
 import { RecoilRoot } from "recoil";
+import { LoadingSpinner } from "./elements";
 
 ReactDOM.render(
 	<RecoilRoot>
-		<React.Suspense fallback={null}>
+		<Suspense fallback={<LoadingSpinner />}>
 			<App />
-		</React.Suspense>
+		</Suspense>
 	</RecoilRoot>,
 	document.getElementById("root")
 );

@@ -1,63 +1,69 @@
-import { atom, selector, selectorFamily } from "recoil";
-import axios from "axios";
+import { atom, selector } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { storage } from "../firebase/firebase";
-import {v4} from "uuid";
+import { apis } from "../apis/apis";
 
+import { storage } from "../firebase/firebase";
+import { v4 } from "uuid";
+
+// atoms
 export const postState = atom({
 	key: "postState",
 	default: [],
 });
 
-export const fileState = atom({
-	key: "postState",
-	default: [],
-});
-
-export const getPosts = selector({
-	key: "get/getPosts",
+// selectors
+export const postSelector = selector({
+	key: "postSelector",
 	get: async () => {
-		const { data } = await axios.get(
-			"http://localhost:3000/api/posts.json"
-		);
+		const { data } = await apis.posts();
 		return data;
+	},
+	set: ({ set }, newPost) => {
+		set(postState, (prevState) => ({
+			...prevState,
+			newPost,
+		}));
 	},
 });
 
-export const createPost = selectorFamily({
-	key: "post/createPost",
-	get: (text, loginUser) => async () => {
-		const navigate = useNavigate();
 
+// action hooks
+// createPost, editPost, deletsPost
+export function usePostActions() {
+	const navigate = useNavigate();
+
+	async function createPost(text, loginUser) {
+		const { userId, nickname, profileImgUrl } = loginUser;
+
+		// 이미지 url 추출 부분 수정 필요 (firestorage에 이미지 업로드하는 방향으로 임시 구현)
 		// let imgUrl = "";
 		// const imgRef = storage.ref().child(`images/${v4()}`);
 		// imgRef.put(file);
 		// const response = await imgRef.putString(previewImage,"data_url");
 		// imgUrl = await response.ref.getDownloadURL();
 
-		const {userId, nickname, profileImgUrl} = loginUser;
-
-		const data = {
-			id: 4,
-			imgUrl: "https://c.tenor.com/DtO_BhH5NUAAAAAC/chunsik-%EC%B6%98%EC%8B%9D.gif",
-			userId: userId,
-			nickname: nickname,
-			profileImgUrl: profileImgUrl,
-			likeCount: 0,
-			likeCheck: false,
-			regDate: Date.now(),
-		};
-		await axios.post("http://localhost:3000/api/posts.json", data);
+		let fakeImgUrl =
+			"https://c.tenor.com/DtO_BhH5NUAAAAAC/chunsik-%EC%B6%98%EC%8B%9D.gif";
+		await apis.add(userId, text, fakeImgUrl);
 		navigate("/");
-	},
-});
+	}
 
-export const updatePost = selector({
-	key: "post/updatePost",
-	get: async () => {},
-});
+	async function editPost(postId, contents, ImgUrl) {
+		// 이미지 url 추출 부분 수정 필요 (firestorage에 이미지 업로드하는 방향으로 임시 구현)
+		// let imgUrl = "";
+		// const imgRef = storage.ref().child(`images/${v4()}`);
+		// imgRef.put(file);
+		// const response = await imgRef.putString(previewImage,"data_url");
+		// imgUrl = await response.ref.getDownloadURL();
 
-export const deletePost = selector({
-	key: "post/deletePost",
-	get: async () => {},
-});
+		await apis.edit(postId, contents, ImgUrl);
+		navigate("/");
+	}
+
+	async function deletePost(postId) {
+		await apis.delete(postId);
+		navigate("/");
+	}
+
+	return { createPost, editPost, deletePost };
+}

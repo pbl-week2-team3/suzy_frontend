@@ -1,12 +1,14 @@
 import React from "react";
-import axios from "axios";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
+
+import {loginUserState} from "../modules/users";
+import { usePostActions } from "../modules/posts";
 
 import { Grid, Text, Input, Button, Image } from "../elements";
-import {loginUserState} from "../modules/users";
-import { createPost } from "../modules/posts";
 
-const NewPost = (props) => {
+const NewPost = ({history}) => {
+	const postActions = usePostActions();
+
 	const loginUser = useRecoilValue(loginUserState);
 
 	const [previewImage, setPreviewImage] = React.useState(
@@ -67,7 +69,7 @@ const NewPost = (props) => {
 
 				<Button
 					_onClick={() => {
-						createPost(text, loginUser);
+						postActions.createPost(text, loginUser);
 					}}
 					width='100%'
 					backgroundColor='#000'

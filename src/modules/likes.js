@@ -1,32 +1,28 @@
-import { atom, selector, useSetRecoilState } from "recoil";
-import axios from "axios";
+import { atom, selector} from "recoil";
+import { apis } from "../apis/apis";
 
+// atoms
 export const likeState = atom({
 	key: "likeState",
-	default: [
-		{
-			
-		}
-	],
+	default: [],
 });
 
-// refactoring : 전체 likes DB 안 불러오고 count만 fetchin
-export const getLikeList = selector({
+// selectors
+export const whoLikeListSelector = selector({
 	key: "get/getLikeCount",
-	get: async () => {
-	},
+	get: async () => {},
 });
 
-export const addLikes = selector({
-	key: "get/addLikes",
-	get: async () => {
-		const {data} = await axios.get('http://localhost:3000/api/posts.json');
-		return data;
-	},
-});
+// action hooks
+export function useLikeActions() {
 
-export const cancelLikes = selector({
-	key: "get/cancelLikes",
-	get: async (id) => {
-	},
-});
+	async function increaseLikeCount(postId) {
+		await apis.addLike(postId);
+	}
+
+	async function decreaseLikeCount(postId) {
+		await apis.cancelLike(postId);
+	}
+
+	return {increaseLikeCount, decreaseLikeCount};
+}

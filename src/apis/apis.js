@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	basUrl: "",
+	baseUrl: "http://localhost:3000",
 	headers: {
 		"content-type": "application/json;charset=UTF-8",
 		accept: "application/json",
@@ -16,11 +16,11 @@ api.interceptors.request.use(function (config) {
 
 export const apis = {
 	// post
-    posts: () => api.get("/api/post"),
-    post: (postId) => api.get(`api/post/${postId}`),
-    add: (userId, contents, img_url) => api.post("/api/post", {userId, contents, img_url}),
-    delete: (postId) => api.delete(`/api/post/${postId}`),
-    edit: (postId, contents, imgUrl) => api.put(`/api/post/${postId}`, {contents, imgUrl}), 
+    posts: () => api.get("/api/posts.json"),
+    post: (postId) => api.get(`/api/post/${postId}.json`),
+    add: (userId, contents, img_url) => api.post("/api/post.json", {userId, contents, img_url}),
+    delete: (postId) => api.delete(`/api/post/${postId}.json`),
+    edit: (postId, contents, imgUrl) => api.put(`/api/post/${postId}.json`, {contents, imgUrl}), 
 
     // comment
     alarm: () => api.get("/api/alarm"),
@@ -39,5 +39,6 @@ export const apis = {
             id, nickname, password, confirmPassword, profileImgUrl
         })
     ),
-    login: (id, password) => api.post("/api/login", {id, password}),
+    login: (id, password) => api.get("/api/login.json", {id, password}),
+    getLoginUserInfo: (id) => api.get("/api/loginUser.json"),
 };

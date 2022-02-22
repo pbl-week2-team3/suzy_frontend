@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
 
-const Signup = (props) => {
+const Signup = ({history}) => {
 	return (
 		<React.Fragment>
 			<Grid padding='16px'>

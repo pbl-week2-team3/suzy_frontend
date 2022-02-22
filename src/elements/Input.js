@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {Text} from "../elements";
 
 const Input = (props) => {
-	const { _onChange, width, height, label, placeholder, children } = props;
+	const { _onChange, _type, width, height, label, placeholder, children } = props;
 
 	const styles = {
 		width: width,
@@ -14,7 +14,7 @@ const Input = (props) => {
 	return (
 		<>
 			<Text bold>{label}</Text>
-			<I onChange={_onChange} {...styles} placeholder={placeholder}>{children}</I>
+			<I onChange={_onChange} type={_type} {...styles} placeholder={placeholder}>{children}</I>
 		</>
 	);
 };

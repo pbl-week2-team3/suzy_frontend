@@ -1,8 +1,6 @@
 import React from "react";
 import Comment from "./Comment";
 
-import { Grid, Image, Text, Button } from "../elements";
-
 const CommentList = (props) => {
 
 	const comments = props.comments;

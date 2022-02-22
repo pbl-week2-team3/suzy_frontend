@@ -1,15 +1,22 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import CommentList from "./CommentList";
 import { getComments } from "../modules/comments";
-import { Grid, Image, Text, Heart, Input, Button } from "../elements";
 import { loginState, loginUserState } from "../modules/users";
+import { useLikeActions } from "../modules/likes";
+
+// import CommentList from "./CommentList";
+import { Grid, Image, Text, Heart, Input, Button } from "../elements";
 
 const Post = (props) => {
+
+	const likeActions = useLikeActions();
+
 	const loginUser = useRecoilValue(loginUserState);
 	const isLogin = useRecoilValue(loginState);
+
 	const [heartActive, setHeartActive] = React.useState(props.post.likeCheck);
+	const [likeCount, setLikeCount] = React.useState(props.post.likeCount);
 
 	const comments = useRecoilValue(getComments).filter((c, idx) => {
 		return c.id === props.post.id;
@@ -28,10 +35,15 @@ const Post = (props) => {
 	};
 
 	const onHeartClick = (isLike) => {
-		if (isLike) {
+		const prevLikeCount = likeCount;
+		if (!isLike) {
 			setHeartActive(!isLike);
+			setLikeCount(prevLikeCount + 1);
+			likeActions.increaseLikeCount();
 		} else {
 			setHeartActive(!isLike);
+			setLikeCount(prevLikeCount - 1);
+			likeActions.decreaseLikeCount();
 		}
 	};
 
@@ -69,22 +81,22 @@ const Post = (props) => {
 					</Grid>
 
 					<Grid padding='5px 16px'>
-						<Grid isFlex>
-							<Grid>
+						<Grid float="right">
+							{/* <Grid>
 								<Text bold>댓글 {comments.length}개</Text>
-							</Grid>
+							</Grid> */}
 
 							<Grid isFlex>
-								<Text bold>{props.post.likeCount}</Text>
 								<Heart
 									active={heartActive}
 									_onClick={() => onHeartClick(heartActive)}
 								/>
+								<Text bold>{likeCount}</Text>
 							</Grid>
 						</Grid>
 					</Grid>
 
-					<Grid padding='0px 16px'>
+					{/* <Grid padding='0px 16px'>
 						<Grid isFlex>
 							<Input width='100%' />
 							<Button>작성</Button>
@@ -93,7 +105,7 @@ const Post = (props) => {
 
 					<Grid padding='16px'>
 						<CommentList comments={comments} />
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</React.Fragment>
 		);
@@ -109,7 +121,6 @@ const Post = (props) => {
 									src={props.post.profileImgUrl}
 								/>
 								<Text bold>{props.post.nickname}</Text>
-								<Text bold>{props.post.userId}</Text>
 							</Grid>
 							<Grid isFlex>
 								<Text>{getTime(props.post.regDate)}</Text>
@@ -126,19 +137,19 @@ const Post = (props) => {
 					</Grid>
 
 					<Grid padding='5px 16px'>
-						<Grid isFlex>
-							<Grid>
+						<Grid float="right">
+							{/* <Grid>
 								<Text bold>댓글 {comments.length}개</Text>
-							</Grid>
+							</Grid> */}
 
 							<Grid isFlex>
-								<Text bold>{props.post.likeCount}</Text>
 								<Heart active={false} />
+								<Text bold>{props.post.likeCount}</Text>
 							</Grid>
 						</Grid>
 					</Grid>
 
-					<Grid padding='0px 16px'>
+					{/* <Grid padding='0px 16px'>
 						<Grid isFlex>
 							<Input width='100%' />
 							<Button>작성</Button>
@@ -147,7 +158,7 @@ const Post = (props) => {
 
 					<Grid padding='16px'>
 						<CommentList comments={comments} />
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</React.Fragment>
 		);

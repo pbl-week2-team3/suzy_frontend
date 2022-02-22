@@ -1,18 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue} from "recoil";
 
 import { Grid, Text, Input, Button } from "../elements";
 import {loginState, useUserActions} from "../modules/users";
 
-const Login = () => {
-	const navigate = useNavigate();
+const Login = ({history}) => {
 
 	const isLogin = useRecoilValue(loginState);
 	const userActions = useUserActions();
 
 	const [id, setId] = React.useState("");
 	const [password, setPassword] = React.useState("");
+
+	React.useEffect(() => {
+		if (isLogin) {
+			history.push("/");
+		}
+	}, []);
 
 	const changeId = (e) => {
 		setId(e.target.value);
@@ -21,12 +25,6 @@ const Login = () => {
 	const changePassword = (e) => {
 		setPassword(e.target.value);
 	};
-
-	React.useEffect(() => {
-		if (isLogin) {
-			navigate("/");
-		}
-	}, []);
 
 	return (
 		<React.Fragment>
@@ -38,15 +36,15 @@ const Login = () => {
 				<Grid padding='16px 0px'>
 					<Input
 						label='아이디'
-						placeholder='아이디를 입력해주세요.'
+						placeholder='아이디를 입력해주세요.(아이디는 master@aaa.com)'
 						value={id}
 						_onChange={changeId}></Input>
 					<Input
 						label='비밀번호'
-						placeholder='비밀번호를 입력해주세요.'
+						placeholder='비밀번호를 입력해주세요.(비밀번호는 1111)'
 						value={password}
 						_onChange={changePassword}
-						type='password'></Input>
+						_type='password'></Input>
 				</Grid>
 
 				<Button

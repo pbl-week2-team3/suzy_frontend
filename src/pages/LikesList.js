@@ -1,11 +1,7 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { Grid, Text, Input, Button } from "../elements";
-import { getLikeList } from "../modules/likes";
+import { Grid, Text} from "../elements";
 
-const LikesList = (props) => {
-
-	const likes = useRecoilValue(getLikeList);
+const LikesList = ({history}) => {
 
 	return (
 		<React.Fragment>

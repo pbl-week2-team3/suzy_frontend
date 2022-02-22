@@ -1,18 +1,14 @@
 import React from "react";
-
+import { useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
 
-import { loginState, loginUserState, useUserActions } from "../modules/users";
+import { loginState, useUserActions } from "../modules/users";
 
 import { Grid, Text, Button } from "../elements";
 
 const Header = (props) => {
 	const userActions = useUserActions();
-
-	const [isLogin, setIsLogin] = useRecoilState(loginState);
-	const [loginUser, setLoginUser] = useRecoilState(loginUserState);
-	console.log(loginUser);
+	const isLogin = useRecoilValue(loginState);
 
 	if (isLogin) {
 		return (
@@ -28,7 +24,6 @@ const Header = (props) => {
 						</Grid>
 
 						<Grid isFlex>
-							<Text>{loginUser.nickname}님 반가워요!</Text>
 							<Link to='/signup'>
 								<Button>내정보</Button>
 							</Link>

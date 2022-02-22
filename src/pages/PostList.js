@@ -1,35 +1,36 @@
 // PostList.js
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+
+import { postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
+import { LoadingSpinner } from "../elements";
 
-// import { postState } from "../modules/state";
-import { postState, getPosts } from "../modules/posts";
 
-const PostList = (props) => {
-	const posts = useRecoilValue(getPosts);
-	console.log(posts);
+const PostList = ({ history }) => {
+	const posts = useRecoilValue(postSelector);
+	const postLoadable = useRecoilValueLoadable(postSelector);
 
-	// fetch("http://localhost:3000/api/posts.json", {
-	// 	method: "GET",
-	// })
-	// 	.then((res) => res.json())
-	// 	.then((data) => {
-	// 		let list = [];
-	// 			data.forEach(d => {
-	// 				list.push(d);
-	// 			});
-	// 		console.log(list);
-	// 	});
-
-	return (
-		<React.Fragment>
-			{posts.map((p, idx) => {
-				return <Post post={p} key={idx} />;
-			})}
-		</React.Fragment>
-	);
+	// eslint-disable-next-line default-case
+	switch (postLoadable.state) {
+		case "hasValue":
+			return (
+				<React.Fragment>
+					{posts.map((p, idx) => {
+						return <Post post={p} key={idx} />;
+					})}
+				</React.Fragment>
+			);
+		case "loading":
+			return (
+				<React.Fragment>
+					<LoadingSpinner />
+				</React.Fragment>
+			);
+		case "hasError":
+			throw postLoadable.contents;
+	}
 };
 
 export default PostList;

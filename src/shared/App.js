@@ -1,18 +1,16 @@
 import "./App.css";
 import React from "react";
-
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import Header from "./Header"
-import {PostList, Signup, Login, NewPost, LikesList} from "../pages/index"
-
-import { FloatingButton, Grid } from "../elements";
 import { history } from "../utils/history";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../modules/users";
 
-function App() {
+import Header from "./Header";
+import { PostList, Signup, Login, NewPost, LikesList } from "../pages/index";
+import { FloatingButton, Grid } from "../elements";
 
+function App() {
 	const isLogin = useRecoilValue(loginState);
 
 	return (
