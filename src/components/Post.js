@@ -12,7 +12,6 @@ import { HighlightOff, Adjust } from "@material-ui/icons";
 import { usePostActions } from "../modules/posts";
 
 const Post = (props) => {
-	const navigate = useNavigate();
 
 	const postActions = usePostActions();
 	const likeActions = useLikeActions();
@@ -67,7 +66,7 @@ const Post = (props) => {
 						<Grid isFlex>
 							<Text>{getTime(props.post.regDate)}</Text>
 							{props.post.userId === userId && (
-								<>
+								<Grid isFlex>
 									<Link to={"/edit/" + props.post.id}>
 										<Adjust />
 									</Link>
@@ -79,7 +78,7 @@ const Post = (props) => {
 										}}
 										style={{ cursor: "pointer" }}
 									/>
-								</>
+								</Grid>
 							)}
 						</Grid>
 					</Grid>

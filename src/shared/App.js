@@ -22,7 +22,7 @@ function App() {
 					<Route path='/signup' element={<Signup />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/new' element={<NewPost />} />
-					<Route path='/edit/:post_id' element={<EditPost />} />
+					<Route path='/edit/:postId' element={<EditPost />} />
 					<Route path='/likes' element={<LikesList />} />
 				</Routes>
 				<Link to='/new'>

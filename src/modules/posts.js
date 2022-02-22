@@ -29,7 +29,7 @@ export const postSelector = selector({
 export const singlePostSelector = selectorFamily({
 	key: "singlePostSelector",
 	get: (postId) => async () => {
-		const { data } = await apis.post();
+		const { data } = await apis.post(postId);
 		return data;
 	}
 });
@@ -40,8 +40,7 @@ export const singlePostSelector = selectorFamily({
 export function usePostActions() {
 	const navigate = useNavigate();
 
-	async function createPost(text, loginUser) {
-		const { userId, nickname, profileImgUrl } = loginUser;
+	async function createPost(postId, text, imgUrl) {
 
 		// 이미지 url 추출 부분 수정 필요 (firestorage에 이미지 업로드하는 방향으로 임시 구현)
 		// let imgUrl = "";
@@ -50,9 +49,7 @@ export function usePostActions() {
 		// const response = await imgRef.putString(previewImage,"data_url");
 		// imgUrl = await response.ref.getDownloadURL();
 
-		let fakeImgUrl =
-			"https://c.tenor.com/DtO_BhH5NUAAAAAC/chunsik-%EC%B6%98%EC%8B%9D.gif";
-		await apis.add(userId, text, fakeImgUrl);
+		await apis.add(postId, text, imgUrl);
 		navigate("/");
 	}
 
