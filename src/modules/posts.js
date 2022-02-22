@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
 
@@ -24,6 +24,14 @@ export const postSelector = selector({
 			newPost,
 		}));
 	},
+});
+
+export const singlePostSelector = selectorFamily({
+	key: "singlePostSelector",
+	get: (postId) => async () => {
+		const { data } = await apis.post();
+		return data;
+	}
 });
 
 

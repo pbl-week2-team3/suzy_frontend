@@ -25,12 +25,14 @@ const Header = (props) => {
 
 						<Grid isFlex>
 							<Link to='/signup'>
-								<Button>내정보</Button>
+								<Button backgroundColor='#000' color="#fff">내정보</Button>
 							</Link>
 							<Link to='/likes'>
-								<Button>알림</Button>
+								<Button backgroundColor='#000' color="#fff">알림</Button>
 							</Link>
 							<Button
+								backgroundColor='#000'
+								color='#fff'
 								_onClick={() => {
 									userActions.logout();
 								}}>
@@ -56,10 +58,10 @@ const Header = (props) => {
 
 						<Grid isFlex>
 							<Link to='/signup'>
-								<Button>회원가입</Button>
+								<Button backgroundColor='#000' color="#fff">회원가입</Button>
 							</Link>
 							<Link to='/login'>
-								<Button>로그인</Button>
+								<Button backgroundColor='#000' color="#fff">로그인</Button>
 							</Link>
 						</Grid>
 					</Grid>

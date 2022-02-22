@@ -6,11 +6,16 @@ import { postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
 import { LoadingSpinner } from "../elements";
+import { loginUserSelector } from "../modules/users";
 
 
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
 	const postLoadable = useRecoilValueLoadable(postSelector);
+
+	React.useEffect(() => {
+
+	}, [postLoadable.state]);
 
 	// eslint-disable-next-line default-case
 	switch (postLoadable.state) {

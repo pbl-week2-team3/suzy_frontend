@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { css } from "styled-components";
 
 const Text = (props) => {
 
@@ -29,6 +30,8 @@ const P = styled.p`
     color: ${(props) => props.color};
     font-size: ${(props) => props.size};
     font-weight: ${(props) => (props.bold? "600" : "400")};
+
+    ${(props) => props._onClick? css`cursor: pointer;` : css``}
 `;
 
 export default Text;

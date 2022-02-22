@@ -35,7 +35,7 @@ const GridBox = styled.div`
 	width: ${(props) => props.width};
 	height: 100%;
 	box-sizing: border-box;
-	overflow: hidden;
+	overflow: overlay;
     float: ${(props) => props.float};
 
 	${(props) => (props.padding ? `padding: ${props.padding}` : "")}

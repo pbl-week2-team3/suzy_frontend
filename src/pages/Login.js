@@ -1,12 +1,13 @@
 import React from "react";
-import { useRecoilValue} from "recoil";
+import { useRecoilState, useRecoilValue} from "recoil";
 
 import { Grid, Text, Input, Button } from "../elements";
-import {loginState, useUserActions} from "../modules/users";
+import {loginState, loginUserSelector, useUserActions} from "../modules/users";
 
 const Login = ({history}) => {
 
 	const isLogin = useRecoilValue(loginState);
+	// const [loginUser, setLoginUser] = useRecoilState(loginUserSelector);
 	const userActions = useUserActions();
 
 	const [id, setId] = React.useState("");

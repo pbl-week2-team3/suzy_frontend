@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import { loginState } from "../modules/users";
 
 import Header from "./Header";
-import { PostList, Signup, Login, NewPost, LikesList } from "../pages/index";
+import { PostList, Signup, Login, NewPost, EditPost, LikesList } from "../pages/index";
 import { FloatingButton, Grid } from "../elements";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
 					<Route path='/signup' element={<Signup />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/new' element={<NewPost />} />
+					<Route path='/edit/:post_id' element={<EditPost />} />
 					<Route path='/likes' element={<LikesList />} />
 				</Routes>
 				<Link to='/new'>

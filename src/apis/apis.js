@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	baseUrl: "http://localhost:3000",
+	baseUrl: "https://s3.ap-northeast-2.amazonaws.com/devmaya.shop",
 	headers: {
 		"content-type": "application/json;charset=UTF-8",
 		accept: "application/json",
@@ -40,5 +40,5 @@ export const apis = {
         })
     ),
     login: (id, password) => api.get("/api/login.json", {id, password}),
-    getLoginUserInfo: (id) => api.get("/api/loginUser.json"),
+    getLoginUserInfo: () => api.get("/api/loginUser.json"),
 };

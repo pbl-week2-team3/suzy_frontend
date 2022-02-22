@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# community.io
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Technology Stacks
+- ReactJS
+- Recoil
 
-## Available Scripts
+### Features
+- Posts
+-- Show posts
+-- Create post with image and text
+-- Add or cancel post likes
+- Users
+-- Sign-up, login, logout
 
-In the project directory, you can run:
+### Recoil 사용 후기 (Redux 대비)
+1. Redux 사용시 불편했던 점
+- Redux의 경우, 관리해야하는 전역 state가 많아지거나 다양한 케이스들의 로직을 구현해야하는 경우 그에 수반되는 액션, 리듀서들에 대한 코드들이 기하급수적으로 증가
+-- 개인적으로는 비동기 처리 이후 state를 함께 업데이트 해줘야할 때 dispatch -> middleware -> action generator -> reducer로 연계되는 코드 흐름들이 복잡하게 느껴졌고 여기에 연관된 payload들의 종류가 많아질 수록 관리가 어려웠음
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+2. Recoil에서 유용하다고 생각했던 점
+- atom을 통한 간편한 store 구현 
+- 미들웨어 없이 selector와 selectorFamily만으로도 비동기 처리 가능
+-- 개인적으로 유용했던 사례들을 추려보자면,
+--- 똑같은 API 요청에 대한 응답 값을 다양한 로직으로 처리해서 다양한 state들에 setState하고싶을 때
+--- API 통해 데이터를 동시에 주고 받고 하는 로직들을 구현할 때 selectorFamily로 쉽게 구현 가능 
+- Redux에서는 store에 대한 상태를 action으로 따로 정의해주어야 했으나(isLoading, error) Recoil에서는 useRecoilValueLoadable() hook을 통해 쉽게 접근 가능
+- useRecoilCallback()을 통해 호출 시점에서의 state의 snapshot을 따로 리턴할 수 있음
+- 업데이트 중....
