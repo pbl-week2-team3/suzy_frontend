@@ -1,25 +1,33 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import {loginUserState} from "../modules/users";
-import { postSelector, singlePostSelector, usePostActions } from "../modules/posts";
+
+import { uploadFile } from "react-s3";
+import AWSconfig from "../utils/awsConfig";
+
+import {
+	singlePostSelector,
+	usePostActions,
+} from "../modules/posts";
 
 import { Grid, Text, Input, Button, Image } from "../elements";
 import { useParams } from "react-router-dom";
 
-const EditPost = ({history}) => {
+const EditPost = ({ history }) => {
+
+	window.Buffer = window.Buffer || require("buffer").Buffer;
 
 	const params = useParams();
 	const postActions = usePostActions();
-	
+
 	const postId = params.postId;
 	const detail = useRecoilValue(singlePostSelector(postId));
-	console.log(detail);
 
-	const loginUser = useRecoilValue(loginUserState);
 	const [previewImage, setPreviewImage] = React.useState(detail.imgUrl);
-	const [file, setFile] = React.useState("");
+	const [selectedFile, setSelectedFile] = React.useState(null);
+	const [imgUrl, setImgUrl] = React.useState(null);
 	const [text, setText] = React.useState("");
+
 
 	const changeText = (e) => {
 		if (e.target.value) {
@@ -29,14 +37,11 @@ const EditPost = ({history}) => {
 		}
 	};
 
-	const onImageChange = async (e) => {
-		const {
-			target: { files, value },
-		} = e;
+	const onImageChange = (e) => {
 		const file = e.target.files[0];
+		setSelectedFile(file);
+		console.log(selectedFile);
 		const reader = new FileReader();
-
-		setFile(value);
 
 		reader.onloadend = (finishedEvent) => {
 			const {
@@ -47,7 +52,11 @@ const EditPost = ({history}) => {
 		reader.readAsDataURL(file);
 	};
 
-	const fakeImgUrl = "https://c.tenor.com/rHwI0HUDcfEAAAAd/chunsik-%EC%B6%98%EC%8B%9D.gif";
+	const handleUpload = async (file) => {
+		uploadFile(file, AWSconfig)
+			.then((data) => setImgUrl(data.location))
+			.catch((err) => console.error(err));
+	};
 
 	return (
 		<React.Fragment>
@@ -68,6 +77,7 @@ const EditPost = ({history}) => {
 						accept='image/*'
 						onChange={onImageChange}
 					/>
+					<button onClick={() => handleUpload(selectedFile)}>업로드</button>
 				</Grid>
 
 				<Grid padding='16px 0px'>
@@ -79,7 +89,7 @@ const EditPost = ({history}) => {
 
 				<Button
 					_onClick={() => {
-						postActions.editPost(postId, text, fakeImgUrl);
+						postActions.editPost(postId, text, imgUrl);
 					}}
 					width='100%'
 					backgroundColor='#000'

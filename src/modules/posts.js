@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from "recoil";
+import { atom, selector, selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
 
@@ -39,35 +39,34 @@ export const singlePostSelector = selectorFamily({
 // createPost, editPost, deletsPost
 export function usePostActions() {
 	const navigate = useNavigate();
+	const setPostState = useSetRecoilState(postState);
 
-	async function createPost(postId, text, imgUrl) {
-
-		// 이미지 url 추출 부분 수정 필요 (firestorage에 이미지 업로드하는 방향으로 임시 구현)
-		// let imgUrl = "";
-		// const imgRef = storage.ref().child(`images/${v4()}`);
-		// imgRef.put(file);
-		// const response = await imgRef.putString(previewImage,"data_url");
-		// imgUrl = await response.ref.getDownloadURL();
-
-		await apis.add(postId, text, imgUrl);
-		navigate("/");
+	async function createPost(userId, text, imgUrl) {
+		const {response} = await apis.add(userId, text, imgUrl);
+		if (response.success) {
+			window.alert("포스트 등록을 완료하였습니다.");
+			navigate("/");
+		} else {
+			window.alert("포스트 등록에 실패하였습니다. 다시 입력해주세요.");
+		}
 	}
 
 	async function editPost(postId, contents, ImgUrl) {
-		// 이미지 url 추출 부분 수정 필요 (firestorage에 이미지 업로드하는 방향으로 임시 구현)
-		// let imgUrl = "";
-		// const imgRef = storage.ref().child(`images/${v4()}`);
-		// imgRef.put(file);
-		// const response = await imgRef.putString(previewImage,"data_url");
-		// imgUrl = await response.ref.getDownloadURL();
-
-		await apis.edit(postId, contents, ImgUrl);
-		navigate("/");
+		await apis
+		.edit(postId, contents, ImgUrl)
+		.then(window.alert("포스트 수정을 완료하였습니다."))
+		.then(navigate("/"))
+		.catch("포스트 수정에 실패했습니다.다시 입력해주세요.");
 	}
 
 	async function deletePost(postId) {
-		await apis.delete(postId);
-		navigate("/");
+		const {response} = await apis.delete(postId);
+		if (response.success) {
+			setPostState({...postState});
+			window.alert("삭제되었습니다");
+		} else {
+			window.alert("삭제에 실패했습니다");
+		}
 	}
 
 	return { createPost, editPost, deletePost };

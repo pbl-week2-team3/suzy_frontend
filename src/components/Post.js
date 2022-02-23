@@ -2,16 +2,20 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 
-import { getComments } from "../modules/comments";
-import { loginState, loginUserState } from "../modules/users";
+import { loginState } from "../modules/users";
+import { usePostActions } from "../modules/posts";
 import { useLikeActions } from "../modules/likes";
 
 // import CommentList from "./CommentList";
-import { Grid, Image, Text, Heart, Input, Button } from "../elements";
+import { Grid, Image, Text, Heart } from "../elements";
 import { HighlightOff, Adjust } from "@material-ui/icons";
-import { usePostActions } from "../modules/posts";
 
 const Post = (props) => {
+
+	const navigate = useNavigate();
+	const editUrl = "/edit/" + props.post.id;
+
+	console.log(editUrl);
 
 	const postActions = usePostActions();
 	const likeActions = useLikeActions();
@@ -68,7 +72,9 @@ const Post = (props) => {
 							{props.post.userId === userId && (
 								<Grid isFlex>
 									<Link to={"/edit/" + props.post.id}>
-										<Adjust />
+										<Adjust onClick={() => {
+											navigate(editUrl);
+										}} />
 									</Link>
 									<HighlightOff
 										onClick={() => {

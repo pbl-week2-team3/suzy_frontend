@@ -4,9 +4,10 @@ import { css } from "styled-components";
 
 const Text = (props) => {
 
-    const {bold, color, size, children} = props;
+    const {font, bold, color, size, children} = props;
 
     const styles = {
+        font: font,
         bold: bold,
         color: color, 
         size: size
@@ -28,6 +29,7 @@ Text.defaultProps = {
 
 const P = styled.p`
     color: ${(props) => props.color};
+    font-family: ${(props) => props.font};
     font-size: ${(props) => props.size};
     font-weight: ${(props) => (props.bold? "600" : "400")};
 

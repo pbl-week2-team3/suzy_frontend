@@ -36,7 +36,7 @@ const GridBox = styled.div`
 	height: 100%;
 	box-sizing: border-box;
 	overflow: overlay;
-    float: ${(props) => props.float};
+	float: ${(props) => props.float};
 
 	${(props) => (props.padding ? `padding: ${props.padding}` : "")}
 	${(props) => (props.margin ? `margin: ${props.margin}` : "")}
@@ -48,6 +48,7 @@ const GridBox = styled.div`
 			? `display:flex; 
 				align-items: center; 
 				justify-content:space-between;
+				flex-wrap: wrap;
 			`
 			: ""}
 `;

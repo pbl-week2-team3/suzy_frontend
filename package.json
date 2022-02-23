@@ -9,12 +9,16 @@
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.26.0",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.0.0",
     "firebase": "^9.6.7",
     "history": "^5.2.0",
     "react": "^17.0.2",
+    "react-aws-s3": "^1.5.0",
     "react-dom": "^17.0.2",
     "react-images-uploading": "^3.1.3",
     "react-router-dom": "^6.2.1",
+    "react-s3": "^1.3.1",
     "react-scripts": "5.0.0",
     "recoil": "^0.6.1",
     "styled-components": "^5.3.3",
@@ -43,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/pbl-week2-team3/suzy_frontend.git",
+  "author": "Maya <suzy.maya.yu@gmail.com>",
+  "license": "MIT"
 }

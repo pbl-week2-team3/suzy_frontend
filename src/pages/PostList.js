@@ -14,7 +14,7 @@ const PostList = ({ history }) => {
 	const postLoadable = useRecoilValueLoadable(postSelector);
 
 	React.useEffect(() => {
-
+		
 	}, [postLoadable.state]);
 
 	// eslint-disable-next-line default-case
