@@ -11,6 +11,7 @@ import { loginUserSelector } from "../modules/users";
 
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
+	console.log(posts);
 	const postLoadable = useRecoilValueLoadable(postSelector);
 
 	React.useEffect(() => {

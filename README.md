@@ -6,11 +6,11 @@
 
 ### Features
 - Posts
--- Show posts
--- Create post with image and text
--- Add or cancel post likes
+    - Show posts
+    - Create post with image and text
+    - Add or cancel post likes
 - Users
--- Sign-up, login, logout
+    - Sign-up, login, logout
 
 ### Recoil 사용 후기 (Redux 대비)
 1. Redux 사용시 불편했던 점

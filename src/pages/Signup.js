@@ -47,6 +47,8 @@ const Signup = ({ history }) => {
 		setConfirmPassword(e.target.value);
 	};
 
+	// refactoring
+	// 나중에 onImageChange랑 handleUpload 합쳐서 별도 컴포넌트 생성 예정
 	const onImageChange = (e) => {
 		const file = e.target.files[0];
 		setSelectedFile(file);
@@ -64,7 +66,8 @@ const Signup = ({ history }) => {
 
 	const handleUpload = async (file) => {
 		uploadFile(file, AWSconfig)
-			.then((data) => setProfileImageUrl(data.location))
+			.then(console.log("success"))
+			.then((data) => console.log(data))
 			.catch((err) => console.error(err));
 	};
 
