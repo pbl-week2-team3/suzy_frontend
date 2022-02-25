@@ -15,7 +15,15 @@ const Post = (props) => {
 	const navigate = useNavigate();
 	const editUrl = "/edit/" + props.post.id;
 
-	console.log(editUrl);
+// 	contents: "sssswerw"
+// id: 1
+// img_url: "asdfasedfdsf"
+// like_check: false
+// like_count: 1
+// me: false
+// nickname: "as12"
+// profile_img: "https://media.discordapp.net/attachments/769096782088503298/945677346525040690/default.png"
+// reg_date: "2022-02-23T08:29:42.000Z"
 
 	const postActions = usePostActions();
 	const likeActions = useLikeActions();
@@ -23,8 +31,8 @@ const Post = (props) => {
 	const userId = localStorage.getItem("userId");
 	const isLogin = useRecoilValue(loginState);
 
-	const [heartActive, setHeartActive] = React.useState(props.post.likeCheck);
-	const [likeCount, setLikeCount] = React.useState(props.post.likeCount);
+	const [heartActive, setHeartActive] = React.useState(props.post.like_check);
+	const [likeCount, setLikeCount] = React.useState(props.post.like_count);
 
 	// const comments = useRecoilValue(getComments).filter((c, idx) => {
 	// 	return c.id === props.post.id;
@@ -37,6 +45,8 @@ const Post = (props) => {
 		// console.log(result);
 		if (result < 24) {
 			return result + "시간 전";
+		} else if(0 < result < 1) {
+			return 
 		} else {
 			return parseInt(result / 24) + "일 전";
 		}
@@ -63,12 +73,12 @@ const Post = (props) => {
 						<Grid isFlex>
 							<Image
 								shape='circle'
-								src={props.post.profileImgUrl}
+								src={props.post.profile_img}
 							/>
 							<Text bold>{props.post.nickname}</Text>
 						</Grid>
 						<Grid isFlex>
-							<Text>{getTime(props.post.regDate)}</Text>
+							<Text>{getTime(props.post.reg_date)}</Text>
 							{props.post.userId === userId && (
 								<Grid isFlex>
 									<Link to={"/edit/" + props.post.id}>
@@ -95,7 +105,7 @@ const Post = (props) => {
 				</Grid>
 
 				<Grid>
-					<Image shape='retangle' src={props.post.imgUrl} />
+					<Image shape='retangle' src={props.post.img_url} />
 				</Grid>
 
 				<Grid padding='5px 16px'>
@@ -136,12 +146,12 @@ const Post = (props) => {
 						<Grid isFlex>
 							<Image
 								shape='circle'
-								src={props.post.profileImgUrl}
+								src={props.post.profile_img}
 							/>
 							<Text bold>{props.post.nickname}</Text>
 						</Grid>
 						<Grid isFlex>
-							<Text>{getTime(props.post.regDate)}</Text>
+							<Text>{getTime(props.post.reg_date)}</Text>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -151,7 +161,7 @@ const Post = (props) => {
 				</Grid>
 
 				<Grid>
-					<Image shape='retangle' src={props.post.imgUrl} />
+					<Image shape='retangle' src={props.post.img_url} />
 				</Grid>
 
 				<Grid padding='5px 16px'>

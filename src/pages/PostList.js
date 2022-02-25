@@ -1,8 +1,8 @@
 // PostList.js
 import React from "react";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 
-import { postSelector } from "../modules/posts";
+import { postState, postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
 import { LoadingSpinner } from "../elements";
@@ -11,7 +11,7 @@ import { loginUserSelector } from "../modules/users";
 
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
-	console.log(posts);
+	// const setPostState = useSetRecoilState(postState);
 	const postLoadable = useRecoilValueLoadable(postSelector);
 
 	React.useEffect(() => {

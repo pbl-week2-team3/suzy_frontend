@@ -4,6 +4,9 @@ import {
 	useRecoilValue,
 	useSetRecoilState,
 } from "recoil";
+
+import axios from "axios";
+
 import { setCookie, deleteCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
@@ -53,23 +56,26 @@ export function useUserActions() {
 	const navigate = useNavigate();
 	const setLoginState = useSetRecoilState(loginState);
 
+	// Axios.post('/auth/login', variables)
+	// .then(res => {
+	//   setCookie('token', res.payload.accessToken)
+	//   setCookie('exp', res.payload.accessTokenExpiresIn)
+	//   // token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
+	//   Axios.defaults.headers.common['Authorization'] = `Bearer ${res.payload.accessToken}`
+	//   Axios.get('/user/me')
+	//     .then(res => {
+	//       console.log(res);
+	//     })
+	// })
+
 	async function login(id, password) {
-		if ((id, password)) {
-			await apis
-				.login(id, password)
-				.then((res) => {
-					if (res.data[0].success) {
-						localStorage.setItem("userId", id);
-						setCookie("token", res.data[0].token, 1);
-						setCookie("userPwd", password, 1);
-						setLoginState(true);
-						navigate("/");
-					}
-				})
-				.catch((e) => {
-					window.alert("잘못된 로그인 요청입니다.");
-				});
-		}
+		axios.post("http://52.78.200.34/api/login", {id, password}).then(res => {
+			console.log(res.payload);
+			setCookie("token", res.payload.accessToken)
+			setCookie("exp", res.payload.accessTokenExpiresIn)
+			axios.defaults.headers.common["Authorization"] = `${res.payload.accessToken}`;
+			console.log(res);
+		})
 	}
 
 	function logout() {

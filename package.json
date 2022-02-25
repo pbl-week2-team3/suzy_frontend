@@ -51,5 +51,6 @@
   "main": "index.js",
   "repository": "https://github.com/pbl-week2-team3/suzy_frontend.git",
   "author": "Maya <suzy.maya.yu@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "proxy": "https://devmayaimages.s3.ap-northeast-2.amazonaws.com"
 }
