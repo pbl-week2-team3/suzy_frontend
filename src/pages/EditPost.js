@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
+import { BUCKET, awsS3Bucket, BASE_S3_URL } from "../utils/awsBucketConfig";
 
 import { uploadFile } from "react-s3";
 import AWSconfig from "../utils/awsConfig";
@@ -54,11 +55,20 @@ const EditPost = ({ history }) => {
 		reader.readAsDataURL(file);
 	};
 
-	const handleUpload = async (file) => {
-		uploadFile(file, AWSconfig)
-			.then(console.log("success"))
-			.then((data) => setImgUrl(data.location))
-			.catch((err) => console.error(err));
+	const handleUpload = async (folderName, file) => {
+		const urlIdentifier = `img-${Math.ceil(Math.random() * 10 ** 10)}`;
+
+		const params = {
+			ACL: "public-read",
+			Body: file,
+			Bucket: BUCKET,
+			Key: folderName + "/" + urlIdentifier,
+		};
+
+		await awsS3Bucket.putObject(params).send(() => {
+			const signedUrl = BASE_S3_URL + folderName + "/" + urlIdentifier;
+			setImgUrl(signedUrl);
+		});
 	};
 
 	return (

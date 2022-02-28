@@ -15,6 +15,8 @@ const Post = (props) => {
 	const navigate = useNavigate();
 	const editUrl = "/edit/" + props.post.id;
 
+	console.log(props);
+
 // 	contents: "sssswerw"
 // id: 1
 // img_url: "asdfasedfdsf"
@@ -43,12 +45,12 @@ const Post = (props) => {
 		const regDt = parseInt(Date.parse(regDate)) / 1000;
 		const result = (now - regDt) / 3600;
 		// console.log(result);
-		if (result < 24) {
-			return result + "시간 전";
-		} else if(0 < result < 1) {
-			return 
-		} else {
+		if (result > 24) {
 			return parseInt(result / 24) + "일 전";
+		} else if(0 < result < 1) {
+			return parseInt(result * 60) + "분 전";
+		} else {
+			return parseInt(result) + "시간 전";
 		}
 	};
 
@@ -78,10 +80,10 @@ const Post = (props) => {
 							<Text bold>{props.post.nickname}</Text>
 						</Grid>
 						<Grid isFlex>
-							<Text>{getTime(props.post.reg_date)}</Text>
+							<Text>{getTime(props.post.createdAt)}</Text>
 							{props.post.userId === userId && (
 								<Grid isFlex>
-									<Link to={"/edit/" + props.post.id}>
+									<Link to={"/edit/" + props.id}>
 										<Adjust onClick={() => {
 											navigate(editUrl);
 										}} />

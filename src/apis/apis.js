@@ -1,6 +1,9 @@
 import axios from "axios";
 import { getCookie } from "../shared/Cookie";
 
+// 내꺼 테스트용
+// baseURL: "http://localhost:3000",
+
 // 민수님
 // baseURL: "http://onlyonep.shop",
 
@@ -11,9 +14,7 @@ import { getCookie } from "../shared/Cookie";
 // baseURL: "http://xpecter.shop",
 
 const api = axios.create({
-	baseURL: "http://xpecter.shop/",
-    // baseURL: "http://onlyonep.shop/api/post",
-	// baseUrl: "http://onlyonep.shop",
+	baseURL: "http://localhost:3000",
 	headers: {
 		"content-type": "application/json;charset=UTF-8",
 		accept: "application/json",
@@ -34,7 +35,7 @@ api.interceptors.request.use(
 
 export const apis = {
 	// post
-	posts: () => api.get("/api/post"),
+	posts: () => api.get("/api/posts.json"),
 	post: (postId) => api.get(`/api/post/${postId}`),
 	add: (userId, contents, img_url) =>
 		api.post("/api/post", { userId, contents, img_url }),
@@ -57,13 +58,13 @@ export const apis = {
 	// user
 	// password confirm은 클라이언트단에서 해도 될 건데?
 	signup: (id, nickname, password, confirmPassword, profileImgUrl) =>
-		api.post("/api/register", {
+		api.post("/api/register.json", {
 			id,
 			nickname,
 			password,
 			confirmPassword,
 			profileImgUrl,
 		}),
-	login: (id, password) => api.get("/api/login", { id, password }),
-	getLoginUserInfo: () => api.get("/api/loginUser"),
+	login: (id, password) => api.get("/api/login.json", { id, password }),
+	getLoginUserInfo: () => api.get("/api/loginUser.json"),
 };

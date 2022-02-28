@@ -1,7 +1,6 @@
 import React from "react";
 
-import { uploadFile } from "react-s3";
-import AWSconfig from "../utils/awsConfig";
+import { BUCKET, awsS3Bucket, BASE_S3_URL } from "../utils/awsBucketConfig";
 
 import { loginState, useUserActions } from "../modules/users";
 
@@ -52,7 +51,7 @@ const Signup = ({ history }) => {
 	const onImageChange = (e) => {
 		const file = e.target.files[0];
 		setSelectedFile(file);
-		console.log(selectedFile);
+		console.log(file);
 		const reader = new FileReader();
 
 		reader.onloadend = (finishedEvent) => {
@@ -64,11 +63,21 @@ const Signup = ({ history }) => {
 		reader.readAsDataURL(file);
 	};
 
-	const handleUpload = async (file) => {
-		uploadFile(file, AWSconfig)
-			.then(console.log("success"))
-			.then((data) => console.log(data))
-			.catch((err) => console.error(err));
+	const handleUpload = async (folderName, file) => {
+
+		const urlIdentifier = `img-${Math.ceil(Math.random() * 10 ** 10)}`;
+
+		const params = {
+			ACL: "public-read",
+			Body: file,
+			Bucket: BUCKET,
+			Key: folderName + "/" + urlIdentifier,
+		};
+
+		await awsS3Bucket.putObject(params).send(() => {
+			const signedUrl = BASE_S3_URL + folderName + "/" + urlIdentifier;
+			setProfileImageUrl(signedUrl);
+		});
 	};
 
 	return (
@@ -88,7 +97,8 @@ const Signup = ({ history }) => {
 							/>
 						</Grid>
 					</Grid>
-					<button onClick={() => handleUpload(selectedFile)}>
+					<button
+						onClick={() => handleUpload("profile", selectedFile)}>
 						업로드
 					</button>
 					<input
@@ -121,7 +131,7 @@ const Signup = ({ history }) => {
 					</Grid>
 				</Grid>
 
-				<Grid padding="20px 0px">
+				<Grid padding='20px 0px'>
 					<Button
 						_onClick={() => {
 							userActions.signup(

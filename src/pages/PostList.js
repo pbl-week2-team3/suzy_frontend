@@ -12,11 +12,8 @@ import { loginUserSelector } from "../modules/users";
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
 	// const setPostState = useSetRecoilState(postState);
+	console.log(posts);
 	const postLoadable = useRecoilValueLoadable(postSelector);
-
-	React.useEffect(() => {
-		
-	}, [postLoadable.state]);
 
 	// eslint-disable-next-line default-case
 	switch (postLoadable.state) {

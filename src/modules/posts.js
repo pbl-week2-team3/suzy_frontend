@@ -16,8 +16,7 @@ export const postSelector = selector({
 	key: "postSelector",
 	get: async () => {
 		const { data } = await apis.posts();
-		console.log(data.post);
-		return data.post;
+		return data;
 	},
 	set: ({ set }, newPost) => {
 		set(postState, (prevState) => ({

@@ -3,25 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.53.0",
+    "@aws-sdk/client-s3": "^3.53.1",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.53.0",
+    "@aws-sdk/credential-providers": "^3.53.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "aws-sdk": "^2.1081.0",
     "axios": "^0.26.0",
     "buffer": "^6.0.3",
     "dotenv": "^16.0.0",
     "firebase": "^9.6.7",
+    "fs": "^0.0.1-security",
     "history": "^5.2.0",
     "react": "^17.0.2",
-    "react-aws-s3": "^1.5.0",
     "react-dom": "^17.0.2",
     "react-images-uploading": "^3.1.3",
     "react-router-dom": "^6.2.1",
     "react-s3": "^1.3.1",
     "react-scripts": "5.0.0",
+    "reactstrap": "^9.0.1",
     "recoil": "^0.6.1",
     "styled-components": "^5.3.3",
+    "util": "^0.12.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -52,5 +59,5 @@
   "repository": "https://github.com/pbl-week2-team3/suzy_frontend.git",
   "author": "Maya <suzy.maya.yu@gmail.com>",
   "license": "MIT",
-  "proxy": "https://devmayaimages.s3.ap-northeast-2.amazonaws.com"
+  "proxy": "https://devmaya-resources.s3.ap-northeast-2.amazonaws.com"
 }
