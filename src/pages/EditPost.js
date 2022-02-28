@@ -3,9 +3,6 @@ import { useRecoilValue } from "recoil";
 
 import { BUCKET, awsS3Bucket, BASE_S3_URL } from "../utils/awsBucketConfig";
 
-import { uploadFile } from "react-s3";
-import AWSconfig from "../utils/awsConfig";
-
 import {
 	singlePostSelector,
 	usePostActions,

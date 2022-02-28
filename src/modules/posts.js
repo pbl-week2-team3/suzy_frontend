@@ -2,9 +2,6 @@ import { atom, selector, selectorFamily, useRecoilState, useRecoilValue, useSetR
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
 
-import { storage } from "../firebase/firebase";
-import { v4 } from "uuid";
-
 // atoms
 export const postState = atom({
 	key: "postState",

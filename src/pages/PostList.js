@@ -1,12 +1,11 @@
 // PostList.js
 import React from "react";
-import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
-import { postState, postSelector } from "../modules/posts";
+import { postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
 import { LoadingSpinner } from "../elements";
-import { loginUserSelector } from "../modules/users";
 
 
 const PostList = ({ history }) => {
