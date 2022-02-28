@@ -1,8 +1,11 @@
 import axios from "axios";
 import { getCookie } from "../shared/Cookie";
 
-// 내꺼 테스트용
+// 내꺼 로컬 테스트용
 // baseURL: "http://localhost:3000",
+
+// 내꺼 배포 테스트용
+// baseURL: "http://devmaya.shop",
 
 // 민수님
 // baseURL: "http://onlyonep.shop",
@@ -14,7 +17,7 @@ import { getCookie } from "../shared/Cookie";
 // baseURL: "http://xpecter.shop",
 
 const api = axios.create({
-	baseURL: "http://localhost:3000",
+	baseURL: "http://devmaya.shop",
 	headers: {
 		"content-type": "application/json;charset=UTF-8",
 		accept: "application/json",
@@ -26,7 +29,6 @@ api.interceptors.request.use(
     
     function (config) {
 	    const accessToken = getCookie("token");
-		console.log(accessToken);
 	    config.headers.common["Authorization"] = `Bearer ${accessToken}`;
 	    return config;
     }
