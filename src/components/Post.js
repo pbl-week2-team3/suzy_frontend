@@ -1,4 +1,4 @@
-import React, {forwardRef} from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import { useLikeActions } from "../modules/likes";
 import { Grid, Image, Text, Heart, LoadingSpinner } from "../elements";
 import { HighlightOff, Adjust } from "@material-ui/icons";
 
-const Post = forwardRef((props, ref) => {
+const Post = (props, ref) => {
 	const navigate = useNavigate();
 	const editUrl = "/edit/" + props.post.id;
 
@@ -30,7 +30,7 @@ const Post = forwardRef((props, ref) => {
 	const postRef = React.useRef(null);
 	const observer = React.useRef();
 	const [isLoading, setIsLoading] = React.useState(false);
-	
+
 	const intersectionObserver = (entries, io) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
@@ -68,21 +68,23 @@ const Post = forwardRef((props, ref) => {
 	};
 
 	React.useEffect(() => {
-		observer.current = new IntersectionObserver(intersectionObserver,  {threshold:0.7});
+		observer.current = new IntersectionObserver(intersectionObserver, {
+			threshold: 0.7,
+		});
 		postRef.current && observer.current.observe(postRef.current);
 	}, []);
-	
+
 	if (isLoading === false) {
 		return (
 			<div ref={postRef}>
-				<LoadingSpinner width="100%" height="300px" />
+				<LoadingSpinner width='100%' height='300px' />
 			</div>
 		);
 	} else {
 		if (isLogin) {
 			return (
 				<div ref={postRef}>
-					<Grid padding='16px' >
+					<Grid padding='16px'>
 						<Grid isFlex>
 							<Grid isFlex>
 								<Image
@@ -115,21 +117,21 @@ const Post = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 					</Grid>
-	
+
 					<Grid padding='16px'>
 						<Text>{props.post.contents}</Text>
 					</Grid>
-	
+
 					<Grid>
 						<Image shape='retangle' src={props.post.img_url} />
 					</Grid>
-	
+
 					<Grid padding='5px 16px'>
 						<Grid isFlex>
 							{/* <Grid>
 										<Text bold>댓글 {comments.length}개</Text>
 									</Grid> */}
-	
+
 							<Grid isFlex>
 								<Heart
 									active={heartActive}
@@ -141,7 +143,7 @@ const Post = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 					</Grid>
-	
+
 					{/* <Grid padding='0px 16px'>
 								<Grid isFlex>
 									<Input width='100%' />
@@ -171,21 +173,21 @@ const Post = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 					</Grid>
-	
+
 					<Grid padding='16px'>
 						<Text>{props.post.contents}</Text>
 					</Grid>
-	
+
 					<Grid>
 						<Image shape='retangle' src={props.post.img_url} />
 					</Grid>
-	
+
 					<Grid padding='5px 16px'>
 						<Grid isFlex>
 							{/* <Grid>
 										<Text bold>댓글 {comments.length}개</Text>
 									</Grid> */}
-	
+
 							<Grid isFlex>
 								<Heart active={false} />
 								<Grid padding='0px 5px'>
@@ -194,7 +196,7 @@ const Post = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 					</Grid>
-	
+
 					{/* <Grid padding='0px 16px'>
 								<Grid isFlex>
 									<Input width='100%' />
@@ -209,6 +211,6 @@ const Post = forwardRef((props, ref) => {
 			);
 		}
 	}
-});
+};
 
 export default Post;

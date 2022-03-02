@@ -1,18 +1,14 @@
 // PostList.js
 import React from "react";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
-import { Container, LoadingSpinner } from "../elements";
+import { Container } from "../elements";
 
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
-	// const setPostState = useSetRecoilState(postState);
-	// const postLoadable = useRecoilValueLoadable(postSelector);
-
-	
 
 	return (
 		<Container>
