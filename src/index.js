@@ -5,13 +5,10 @@ import App from "./shared/App";
 import reportWebVitals from "./reportWebVitals";
 
 import { RecoilRoot } from "recoil";
-import { LoadingSpinner } from "./elements";
 
 ReactDOM.render(
 	<RecoilRoot>
-		<Suspense fallback={<LoadingSpinner />}>
-			<App />
-		</Suspense>
+		<App />
 	</RecoilRoot>,
 	document.getElementById("root")
 );

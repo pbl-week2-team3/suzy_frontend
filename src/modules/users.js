@@ -68,13 +68,22 @@ export function useUserActions() {
 	// })
 
 	async function login(id, password) {
-		axios.post("http://52.78.200.34/api/login", {id, password}).then(res => {
-			console.log(res.payload);
-			setCookie("token", res.payload.accessToken)
-			setCookie("exp", res.payload.accessTokenExpiresIn)
-			axios.defaults.headers.common["Authorization"] = `${res.payload.accessToken}`;
-			console.log(res);
-		})
+		if ((id, password)) {
+			await apis
+				.login(id, password)
+				.then((res) => {
+					if (res.data[0].success) {
+						localStorage.setItem("userId", id);
+						setCookie("token", res.data[0].token, 1);
+						setCookie("userPwd", password, 1);
+						setLoginState(true);
+						navigate("/");
+					}
+				})
+				.catch((e) => {
+					window.alert("잘못된 로그인 요청입니다.");
+				});
+		}
 	}
 
 	function logout() {

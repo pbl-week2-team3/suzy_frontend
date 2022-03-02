@@ -4,19 +4,28 @@ import {CircularProgress} from "@material-ui/core"
 
 const LoadingSpinner = (props) => {
 
+    const {width, height} = props;
+
+    const styles = {
+      width: width,
+      height: height
+    };
+
     return (
-      <Outer>
+      <Outer {...styles}>
         <CircularProgress />
       </Outer>
     );
 }
 
+LoadingSpinner.defaultProps = {
+  width: "100vw",
+  height: "100vh"
+}
+
 const Outer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   display: flex;
   align-items: center;
   justify-content: center;

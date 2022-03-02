@@ -27,6 +27,7 @@ export const singlePostSelector = selectorFamily({
 	key: "singlePostSelector",
 	get: (postId) => async () => {
 		const { data } = await apis.post(postId);
+		console.log(data);
 		return data;
 	}
 });

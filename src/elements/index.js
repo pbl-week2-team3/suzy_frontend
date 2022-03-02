@@ -6,5 +6,6 @@ import Input from "./Input";
 import Heart from "./Heart";
 import FloatingButton from "./FloatingButton";
 import LoadingSpinner from "./LoadingSpinner";
+import Container from "./Container"
 
-export {Grid, Image, Text, Button, Input, Heart, FloatingButton, LoadingSpinner};
+export {Grid, Image, Text, Button, Input, Heart, FloatingButton, LoadingSpinner, Container};

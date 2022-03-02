@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { loginState, useUserActions } from "../modules/users";
 
-import { Grid, Text, Button } from "../elements";
+import { Container, Grid, Text, Button } from "../elements";
 
 const Header = (props) => {
 	const userActions = useUserActions();
@@ -13,11 +13,11 @@ const Header = (props) => {
 	if (isLogin) {
 		return (
 			<React.Fragment>
-				<Grid padding='4px 16px'>
+				<Container padding='4px 16px'>
 					<Grid isFlex>
 						<Grid>
 							<Link to='/'>
-								<Text margin='0px' size='24px' bold>
+								<Text font='Pacifico' margin='0px' size='24px' bold>
 									community.io
 								</Text>
 							</Link>
@@ -40,17 +40,17 @@ const Header = (props) => {
 							</Button>
 						</Grid>
 					</Grid>
-				</Grid>
+				</Container>
 			</React.Fragment>
 		);
 	} else {
 		return (
 			<React.Fragment>
-				<Grid padding='4px 16px'>
+				<Container minWidth='375px' padding='4px 16px'>
 					<Grid isFlex>
 						<Grid>
 							<Link to='/'>
-								<Text margin='0px' size='24px' bold>
+								<Text font="'Pacifico', cursive" margin='0px' size='32px'>
 									community.io
 								</Text>
 							</Link>
@@ -65,7 +65,7 @@ const Header = (props) => {
 							</Link>
 						</Grid>
 					</Grid>
-				</Grid>
+				</Container>
 			</React.Fragment>
 		);
 	}

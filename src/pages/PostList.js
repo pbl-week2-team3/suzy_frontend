@@ -5,34 +5,22 @@ import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { postSelector } from "../modules/posts";
 
 import Post from "../components/Post";
-import { LoadingSpinner } from "../elements";
-
+import { Container, LoadingSpinner } from "../elements";
 
 const PostList = ({ history }) => {
 	const posts = useRecoilValue(postSelector);
 	// const setPostState = useSetRecoilState(postState);
-	console.log(posts);
-	const postLoadable = useRecoilValueLoadable(postSelector);
+	// const postLoadable = useRecoilValueLoadable(postSelector);
 
-	// eslint-disable-next-line default-case
-	switch (postLoadable.state) {
-		case "hasValue":
-			return (
-				<React.Fragment>
-					{posts.map((p, idx) => {
-						return <Post post={p} key={idx} />;
-					})}
-				</React.Fragment>
-			);
-		case "loading":
-			return (
-				<React.Fragment>
-					<LoadingSpinner />
-				</React.Fragment>
-			);
-		case "hasError":
-			throw postLoadable.contents;
-	}
+	
+
+	return (
+		<Container>
+			{posts.map((p, idx) => {
+				return <Post post={p} key={idx} />;
+			})}
+		</Container>
+	);
 };
 
 export default PostList;

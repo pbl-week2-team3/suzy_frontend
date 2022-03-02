@@ -82,12 +82,12 @@ const EditPost = ({ history }) => {
 							<Image shape='retangle' src={previewImage} />
 						</Grid>
 					</Grid>
+					<button onClick={() => handleUpload(selectedFile)}>업로드</button>
 					<input
 						type='file'
 						accept='image/*'
 						onChange={onImageChange}
 					/>
-					<button onClick={() => handleUpload(selectedFile)}>업로드</button>
 				</Grid>
 
 				<Grid padding='16px 0px'>
